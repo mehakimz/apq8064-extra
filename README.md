@@ -48,9 +48,40 @@ modules backported from `--git-revision next-20160324` linux-next for Ralink and
 
 #### Supports & Issues
 
-Compillation status:
+* Compillation status:
  CyanogenMod version: 13.0-20161218-NIGHTLY-dogo
  Kernel version: 3.4.112-cm-g79fe27ede33
  Backport tag: linux next-20160324
 
+* Difference between Kernels:
+**boot_full.img**
+Supports for kali Nethunter, HID gadget (keyboard and mouse) and all modules are built-in.
+
+**boot_wifi.img**
+Supports for backported wifi drivers.
+802.11 configuration (cfg80211-main.ko) & wcn3660 driver (wlan.ko) for default wireless interface:
+```
+$busybox insmod /system/lib/modules/cfg80211-main.ko
+$busybox insmod /system/lib/modules/wlan.ko
+```
+for backported derivers (like RT5572 support):
+```
+$busybox rmmod cfg80211
+$busybox rmmod cfg80211
+$busybox insmod /system/lib/modules/compat.ko
+$busybox insmod /system/lib/modules/cfg80211.ko
+$busybox insmod /system/lib/modules/mac80211.ko
+$busybox insmod /system/lib/modules/rt2x00lib.ko
+$busybox insmod /system/lib/modules/rt2800lib.ko
+$busybox insmod /system/lib/modules/rt2x00usb.ko
+$busybox insmod /system/lib/modules/rt2800usb.ko
+```
+
+* Currently USB wifi module based on RT33xx, RT35xx, RT53xx, RTL8192CU supported by boot-full.img and for newer RT3573 and RT5572 chip use rt2800usb in backports. (tested on "D-Link DWA-160 rev.B2" - RT5572) 
+
+* Internal wifi chip "wcn3660" open-source driver backported from "next-20160324" and added to modules tree. Monitor mode can be enabled on interface but nothing will be captured by `tshark`. It's firmware issue.
+
+* HID gadget support based on patch from android-keyboard-gadget project. [more information](https://github.com/pelya/android-keyboard-gadget)
+
+* When you `insmod somemodules.ko` maybe you would see "failed to load somemodules.ko: Bad address". Use `insmod` inside of `chroot env`
 
