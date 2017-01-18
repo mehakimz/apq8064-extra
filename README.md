@@ -48,12 +48,13 @@ modules backported from `--git-revision next-20160324` linux-next for Ralink and
 
 #### Supports & Issues
 
-* Compillation status:
- CyanogenMod version: 13.0-20161218-NIGHTLY-dogo
- Kernel version: 3.4.112-cm-g79fe27ede33
- Backport tag: linux next-20160324
+* Compillation status
+...CyanogenMod version: 13.0-20161218-NIGHTLY-dogo
+...Kernel version: 3.4.112-cm-g79fe27ede33
+...Backport tag: linux next-20160324
 
-* Difference between Kernels:
+* Difference between Kernels
+
 **boot_full.img**
 Supports for kali Nethunter, HID gadget (keyboard and mouse) and all modules are built-in.
 
