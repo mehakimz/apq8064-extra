@@ -57,6 +57,7 @@ modules backported from `--git-revision next-20160324` linux-next for Ralink and
 
 **boot_full.img**
 Supports for kali Nethunter, HID gadget (keyboard and mouse) and all modules are built-in.
+Patched for kernel panic related to rtlwifi driver as [ref.](https://github.com/offensive-security/kali-nethunter/issues/624)
 
 **boot_wifi.img**
 Supports for backported wifi drivers.
