@@ -39,11 +39,7 @@ modules backported from `--git-revision next-20160324` linux-next for Ralink and
 	- rt2800lib.ko
 	- rt2x00usb.ko
 	- rt2800usb.ko
-
-	- rtlwifi.ko
-	- rtl_usb.ko
-	- rtl8192c-common.ko
-	- rtl8192cu.ko
+	- rtl8xxxu.ko
 ```
 
 #### Supports & Issues
