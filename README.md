@@ -50,7 +50,7 @@ modules backported from `--git-revision next-20160324` linux-next for Ralink and
 
 * Compillation status
 ...CyanogenMod version: 13.0-20161218-NIGHTLY-dogo
-...Kernel version: 3.4.112-cm-g79fe27ede33
+...Kernel version: 3.4.112-cm-g631a59498d7
 ...Backport tag: linux next-20160324
 
 * Difference between Kernels
@@ -84,6 +84,8 @@ $busybox insmod /system/lib/modules/rt2800usb.ko
 * Internal wifi chip "wcn3660" open-source driver backported from "next-20160324" and added to modules tree. Monitor mode can be enabled on interface but nothing will be captured by `tshark`. It's firmware issue.
 
 * HID gadget support based on patch from android-keyboard-gadget project. [more information](https://github.com/pelya/android-keyboard-gadget)
+
+* Patched for [Only expose su when daemon is running](https://review.lineageos.org/#/c/170648) and [SU kernel hiding patch](_)
 
 * When you `insmod somemodules.ko` maybe you would see "failed to load somemodules.ko: Bad address". Use `insmod` inside of `chroot env`
 
