@@ -11,60 +11,57 @@ If you have or need to install extra linux distribution like debian or kali in `
 ```
 apq8064-extra
 │
-├── kernel
-│   ├
-│   └── cm-13.0
-│       ├── boot_full.img
-│       ├── boot_wifi.img
-│       └
+├─ kernel
+│  └─ los-14.1
+│     ├─ boot_full.img
+│     ├─ boot_wifi.img
+│     └
 │
-└── module
-    ├── backports
-    │   ├── compat.ko
-    │   ├── cfg80211.ko
-    │   ├── mac80211.ko
-    │   ├── wcn36xx_msm.ko
-    │   └── wcn36xx.ko
-    │
-    └── cm-13.0
-        ├── cfg80211-main.ko
-        ├── wlan.ko
-        ├── ~~pn533.ko~~
-        └── ~~pn544.ko~~
+└─ modules
+   ├─ backports
+   │  ├─ compat.ko
+   │  ├─ cfg80211.ko
+   │  ├─ mac80211.ko
+   │  ├─ rt2x00lib.ko
+   │  ├─ rt2800lib.ko
+   │  ├─ rt2x00usb.ko
+   │  ├─ rt2800usb.ko
+   │  ├─ ~~rtl8xxxu.ko~~
+   │  ├─ wcn36xx_msm.ko
+   │  └─ wcn36xx.ko
+   │
+   └─ los-14.1
+      ├─ cfg80211-main.ko
+      ├─ wlan.ko
+      ├─ ~~pn533.ko~~
+      └─ ~~pn544.ko~~
 ```
-
-modules backported from `--git-revision next-20160324` linux-next for Ralink and Realtek chip support
-```
-	- rt2x00lib.ko
-	- rt2800lib.ko
-	- rt2x00usb.ko
-	- rt2800usb.ko
-	- rtl8xxxu.ko
-```
+> modules backported from `--git-revision v3.19` linux-next for Ralink and Realtek chip support
 
 #### Supports & Issues
 
-* Compillation status
-...CyanogenMod version: 13.0-20161218-NIGHTLY-dogo
-...Kernel version: 3.4.112-cm-g631a59498d7
-...Backport tag: linux next-20160324
+* Compillation status:
+> Lineageos version: 14.1-20171030-NIGHTLY-dogo
 
-* Difference between Kernels
+> Kernel version: 3.4.113-dogo-gd710842
 
-**boot_full.img**
-Supports for kali Nethunter, HID gadget (keyboard and mouse) and all modules are built-in.
-Patched for kernel panic related to rtlwifi driver as [ref.](https://github.com/offensive-security/kali-nethunter/issues/624)
+> Backports branch: linux-3.18.y
 
-**boot_wifi.img**
-Supports for backported wifi drivers.
-802.11 configuration (cfg80211-main.ko) & wcn3660 driver (wlan.ko) for default wireless interface:
+> Kernel extra: 3.4.113-lineageos-gcab505550
+
+* Difference between Kernels:
+ * boot_full.img Supports for kali Nethunter, HID gadget (keyboard and mouse) and all modules are built-in. Patched for kernel panic related to rtlwifi driver as [ref.](https://github.com/offensive-security/kali-nethunter/issues/624)
+
+ * boot_wifi.img Supports for backported wifi drivers.
+
+To use the internal wifi [prima driver](modules/los-14.1), load 802.11 configuration (cfg80211-main.ko) then wlan.ko:
 ```
 $busybox insmod /system/lib/modules/cfg80211-main.ko
 $busybox insmod /system/lib/modules/wlan.ko
 ```
-for backported derivers (like RT5572 support):
+for backported drivers [like RT5572](modules/backports):
 ```
-$busybox rmmod cfg80211
+$busybox rmmod wlan
 $busybox rmmod cfg80211
 $busybox insmod /system/lib/modules/compat.ko
 $busybox insmod /system/lib/modules/cfg80211.ko
@@ -75,13 +72,13 @@ $busybox insmod /system/lib/modules/rt2x00usb.ko
 $busybox insmod /system/lib/modules/rt2800usb.ko
 ```
 
-* Currently USB wifi module based on RT33xx, RT35xx, RT53xx, RTL8192CU supported by boot-full.img and for newer RT3573 and RT5572 chip use rt2800usb in backports. (tested on "D-Link DWA-160 rev.B2" - RT5572) 
+* Currently USB wifi modules based on RT33xx, RT35xx, RT53xx, RTL8192CU supported by boot-full.img and for newer RT3573 and RT5572 chip use boot-wifi.img and rt2800usb in backports. Also you need copy proper firmware(s) - rt2870.bin to /system/etc/firmware path. (tested on "D-Link DWA-160 rev.B2" - RT5572)
 
-* Internal wifi chip "wcn3660" open-source driver backported from "next-20160324" and added to modules tree. Monitor mode can be enabled on interface but nothing will be captured by `tshark`. It's firmware issue.
+* Internal wifi chip "wcn3660" open-source driver backported from "v3.18" and added to modules tree. Monitor mode can be enabled on interface but nothing will be captured. It's firmware issue.
 
 * HID gadget support based on patch from android-keyboard-gadget project. [more information](https://github.com/pelya/android-keyboard-gadget)
 
 * Patched for [Only expose su when daemon is running](https://review.lineageos.org/#/c/170648) and [SU kernel hiding patch](_)
 
-* When you `insmod somemodules.ko` maybe you would see "failed to load somemodules.ko: Bad address". Use `insmod` inside of `chroot env`
+* When you `insmod somemodules.ko` maybe you would see "failed to load somemodules.ko: Bad address". Install latest busybox and use `$busybox insmod` for loading modules.
 
