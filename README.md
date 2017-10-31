@@ -36,7 +36,7 @@ apq8064-extra
       ├─ ~~pn533.ko~~
       └─ ~~pn544.ko~~
 ```
-> modules backported from `--git-revision v3.19` linux-next for Ralink and Realtek chip support
+> modules backported from `--git-revision v3.18` linux-next for Ralink and Realtek chip support
 
 #### Supports & Issues
 
@@ -50,9 +50,9 @@ apq8064-extra
 > Kernel extra: 3.4.113-lineageos-gcab505550
 
 * Difference between Kernels:
- * boot_full.img Supports for kali Nethunter, HID gadget (keyboard and mouse) and all modules are built-in. Patched for kernel panic related to rtlwifi driver as [ref.](https://github.com/offensive-security/kali-nethunter/issues/624)
+  * boot_full.img Supports for kali Nethunter, HID gadget (keyboard and mouse) and all modules are built-in. Patched for kernel panic related to rtlwifi driver as [ref.](https://github.com/offensive-security/kali-nethunter/issues/624)
 
- * boot_wifi.img Supports for backported wifi drivers.
+  * boot_wifi.img Supports for backported wifi drivers.
 
 To use the internal wifi [prima driver](modules/los-14.1), load 802.11 configuration (cfg80211-main.ko) then wlan.ko:
 ```
